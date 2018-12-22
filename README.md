@@ -23,34 +23,34 @@ DESCRIPTION
 
     The folowing options are available;
 
-    -notehub create cloud journal
-    	Creates a cloud journal file in the ~/notehub/cloud/journals
-    -notehub create cloud note
-    	Creates a cloud note file in the ~/notehub/cloud/notes
-    -notehub create local journal
-    	Creates a local journal file in the ~/notehub/local/journals
-    -notehub create local note
-    	Creates a local note file in the ~/notehub/local/notes
-
-
 EXAMPLES
-    notehub -cln "foo bar" -t meeting
 
-    This wil search for a note with title "foo bar", if it is not found it creates one from templatefile 'meeting'.
+    - notehub create cloud journal
+        Creates a cloud journal file in the ~/notehub/cloud/journals
+    - notehub create cloud note
+        Creates a cloud note file in the ~/notehub/cloud/notes
+    - notehub create local journal
+        Creates a local journal file in the ~/notehub/local/journals
+    - notehub create local note
+        Creates a local note file in the ~/notehub/local/notes
 
 TODO
-    * search-methods not created
-    * export-method (pandoc) not created
 
+    - search-methods not created
+    - export-method (pandoc) not created
 
 SEE ALSO
+
     vim 
 
 BUGS
+
     No known bugs
 
 AUTHOR
+
    Henrique van Huisstede <henrique@van.huisste.de>
 
 COPYRIGHT
+
     Please use and improve.
