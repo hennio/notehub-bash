@@ -14,14 +14,16 @@ INSTALLATION
         ~/notehub/cloud/journal (symlink this to synced folders eg dropbox/owncloud etc)
         ~/notehub/local/notes (for notes not to be trusted online and kept locally)
         ~/notehub/local/journal (for journals not to be trusted online and kept locally)
-        ~/notehub/templates/ (for your templates. They are copied to the apropriate folder while creating a note/journal)
+        ~/notehub/templates/ (for your templates. They are copied to the apropriate folder 
+        while creating a note/journal)
     3. Restart your shell
 
 DESCRIPTION
 
-    A personal note-helper for personal use. You can choose for local and cloud-storage by symlinking the folders in the ~/notehub/cloud folder for backup-purposes. If you have notes rather stored locally its possible, they are stored in ~/notehub/local.
+    A personal note-helper for personal use. You can choose for local and cloud-storage by symlinking the folders in the 
+    ~/notehub/cloud folder for backup-purposes. If you have notes rather stored locally its possible, they are stored 
+    in ~/notehub/local.
 
-    The folowing options are available;
 
 EXAMPLES
 
