@@ -1,0 +1,177 @@
+#!/bin/bash
+
+
+
+
+# =============================================================
+# VALIDATING FIRST INPUT
+# =============================================================
+
+
+# Validating first option (mandatory)
+
+if [ -z $1 ]   
+then 
+		echo "Give an option first, like 'notehub create local journal' to create a local journal'"
+elif [ "$1" == "create" ] || [ "$1" == "search" ]
+then
+		echo "1st option ok"
+else
+		echo "1st option 'create' or 'search' are allowed"
+fi
+
+
+# Validating second option (mandatory)
+
+if [ "$2" == "local" ] || [ "$2" == "cloud" ]
+then
+		echo "2nd option ok"
+else
+		echo "2nd option 'local' or 'cloud' are allowed"
+fi
+
+
+# Validating third option (mandatory)
+
+if [ "$3" == "note" ] || [ "$3" == "journal" ]
+then
+		echo "3rd option ok"
+else
+		echo "3rd option 'note' or 'journal' are allowed"
+fi
+
+
+
+# =============================================================
+# VARIABLES
+# =============================================================
+
+IFS=$'\n'
+datestamp=$(date +"%Y%m%d")
+locationdir=$2 # local of cloud
+typedir="$3s" # notes or journals
+path="$HOME/notehub/$locationdir/$typedir"
+
+
+
+
+# =============================================================
+# FUNCTIONS
+# =============================================================
+
+
+function create_file { # arg $1=/path/ $2=filename
+
+templatedir="$HOME/notehub/templates"
+
+templates=($(find "$templatedir" -iname "*.md"))
+
+teller=1
+
+		for f in "${templates[@]}"
+			do
+			echo "$teller: $f"
+			((teller++))
+		done
+		echo ""
+		read -p "Kies een template (n = stop): " antwoord
+		
+		if [ -z $antwoord ] || [ "$antwoord" == "n" ]; then
+			#statements
+			echo "hier"
+			exit 0
+			vim "$1/$2.md"
+			
+		else
+			cp "${templates[$antwoord-1]}" "$1/$2.md"
+			vim "$1/$2.md"
+		fi
+
+}
+
+
+function checkfileexists() { # arg $1=/path/ $2=filename $3=title
+	
+	FILESHEN=($(find "$1" -iname "*$3*.md"))
+	AANT=${#FILESHEN[*]}	
+	if [ $AANT = 0 ]
+	then
+		read -p "Geen bestanden gevonden, nieuwe aanmaken? (j/n): " antwoord
+		while true
+		do
+				case $antwoord in
+						[yYjJ]* ) create_file $1 $2
+										break;;
+						[nN]* ) echo "Beeindigd.."
+								exit;;
+						* ) echo "Alleen j/n"
+				esac
+		done
+	elif [ $AANT = 1 ]
+	then
+		echo "Bestand gevonden: ${FILESHEN[0]}"
+		read -p "Open dit bestand nu? (j/n): " antwoord
+		while true
+		do
+				case $antwoord in
+				     	[yYjJ]* )	vim "${FILESHEN[0]}"
+								    break;;
+						[nN]* ) 	create_file $1 $2
+									break;;
+						* ) echo "Alleen J/N"
+				esac
+		done
+	else
+		teller=1
+		echo "$AANT bestanden gevonden;"
+		echo ""
+		for f in "${FILESHEN[@]}"
+			do
+			echo "$teller: $f"
+			((teller++))
+		done
+		echo ""
+		read -p "Welke moet worden geopend? (n = stop): " antwoord
+		while true
+		do
+				case $antwoord in
+						[nN]* ) 		echo "Beeindigd.."
+										exit;;
+						* )				vim "${FILESHEN[$antwoord-1]}"	
+						                break;;
+				esac
+		done
+	fi
+
+	}
+
+
+
+
+# =============================================================
+# CREATING FILES
+# =============================================================
+
+
+# Creating a note
+if [ "$1" == "create" ] 
+then
+
+	# Title 
+	read -p "Give a title: " title
+
+	if [ -z $title ] 
+	then
+		filename="$datestamp"
+	else
+
+		titledash=${title// /_} # spaties voor - vervangen
+
+		filename="$datestamp-$titledash"
+	fi
+
+	# Allready existing?
+	checkfileexists $path $filename $title
+fi
+
+
