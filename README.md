@@ -4,7 +4,7 @@ NAME
 
 SYNOPSIS
 
-    notehub [OPTION] [-t <templatefile>]
+    notehub [OPTION (create/search)] [LOCATION (local/cloud)] [TYPE (note/journal)]
 
 INSTALLATION
 
@@ -14,7 +14,8 @@ INSTALLATION
         ~/notehub/cloud/journal (symlink this to synced folders eg dropbox/owncloud etc)
         ~/notehub/local/notes (for notes not to be trusted online and kept locally)
         ~/notehub/local/journal (for journals not to be trusted online and kept locally)
-        ~/notehub/templates/ (for your templates. They are copied while creating a note/journal)
+        ~/notehub/templates/ (for your templates. They are copied to the apropriate folder while creating a note/journal)
+    3. Restart your shell
 
 DESCRIPTION
 
@@ -22,28 +23,25 @@ DESCRIPTION
 
     The folowing options are available;
 
-    -ccj <title>
+    -notehub create cloud journal
     	Creates a cloud journal file in the ~/notehub/cloud/journals
-    -ccn <title>
+    -notehub create cloud note
     	Creates a cloud note file in the ~/notehub/cloud/notes
-    -clj <title>
+    -notehub create local journal
     	Creates a local journal file in the ~/notehub/local/journals
-    -cln <title>
+    -notehub create local note
     	Creates a local note file in the ~/notehub/local/notes
-
-    -sn <keyword ...>
-    	Search all notes for keywords
-    -sj <keyword ...>
-    	Search all journals for keywords
-
-    -t <templatefile>
-    	Only possible when creating a note or journal. This selects a templatefile from the ~/notehub/templates/ directory. It copies is to the apropriate folder and renames it and is opened in VIM.
 
 
 EXAMPLES
     notehub -cln "foo bar" -t meeting
 
     This wil search for a note with title "foo bar", if it is not found it creates one from templatefile 'meeting'.
+
+TODO
+    * search-methods not created
+    * export-method (pandoc) not created
+
 
 SEE ALSO
     vim 
