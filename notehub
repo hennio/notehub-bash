@@ -15,9 +15,10 @@ then
 		echo "Give an option first, like 'notehub create local journal' to create a local journal'"
 elif [ "$1" == "create" ] || [ "$1" == "search" ]
 then
-		echo "1st option ok"
+		echo ""
 else
-		echo "1st option 'create' or 'search' are allowed"
+		echo "1st option only 'create' or 'search' are allowed"
+		exit 0
 fi
 
 
@@ -25,9 +26,10 @@ fi
 
 if [ "$2" == "local" ] || [ "$2" == "cloud" ]
 then
-		echo "2nd option ok"
+		echo ""
 else
-		echo "2nd option 'local' or 'cloud' are allowed"
+		echo "2nd option only 'local' or 'cloud' are allowed"
+		exit 0
 fi
 
 
@@ -35,9 +37,10 @@ fi
 
 if [ "$3" == "note" ] || [ "$3" == "journal" ]
 then
-		echo "3rd option ok"
+		echo ""
 else
-		echo "3rd option 'note' or 'journal' are allowed"
+		echo "3rd option only 'note' or 'journal' are allowed"
+		exit 0
 fi
 
 
@@ -173,5 +176,34 @@ then
 	# Allready existing?
 	checkfileexists $path $filename $title
 fi
+
+
+# =============================================================
+# SEARCHING FILES
+# =============================================================
+
+
+# Searching notes
+if [ "$1" == "search" ] 
+then
+
+	# Title 
+	read -p "Give keyword: " keyword
+
+	if [ -z $keyword ] 
+	then
+		echo "keyword not given, aborted"
+		exit 0
+	else
+
+		# search
+		echo grep -i "$keyword $path/*"
+
+	fi
+
+fi
+
+
+
 
 
