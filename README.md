@@ -8,15 +8,19 @@ SYNOPSIS
 
 INSTALLATION
 
+    Note: for export functions install pandoc
+
     1. Move notehub script to a $PATH-location
     2. Create folders;
-        ~/notehub/cloud/notes (symlink this to synced folders eg dropbox/owncloud etc)
+        ~/notehub/cloud/notes (symlink this to synced folders eg dropbox/owncloud etc)[1]
         ~/notehub/cloud/journal (symlink this to synced folders eg dropbox/owncloud etc)
         ~/notehub/local/notes (for notes not to be trusted online and kept locally)
         ~/notehub/local/journal (for journals not to be trusted online and kept locally)
         ~/notehub/templates/ (for your templates. They are copied to the apropriate folder 
         while creating a note/journal)
     3. Restart your shell
+
+    [1] ln -s ~/Nextcloud/notehub/cloud/journals ~/notehub/cloud/journals
 
 DESCRIPTION
 
@@ -36,10 +40,12 @@ EXAMPLES
     - notehub create local note
         Creates a local note file in the ~/notehub/local/notes
 
+    - for export use: pandoc file.md -o ~/Desktop/file.pdf
+    - for search use: "grep -i -H -R string *" in folder
+
 TODO
 
-    - search-methods not created
-    - export-method (pandoc) not created
+    - 
 
 SEE ALSO
 

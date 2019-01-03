@@ -77,12 +77,11 @@ teller=1
 			((teller++))
 		done
 		echo ""
-		read -p "Kies een template (n = stop): " antwoord
+		read -p "Kies een template (0 = leeg): " antwoord
 		
-		if [ -z $antwoord ] || [ "$antwoord" == "n" ]; then
+		if [ -z $antwoord ] || [ "$antwoord" == "0" ]; then
 			#statements
-			echo "hier"
-			exit 0
+
 			vim "$1/$2.md"
 			
 		else
@@ -191,16 +190,65 @@ then
 	read -p "Give keyword: " keyword
 
 	if [ -z $keyword ] 
-	then
-		echo "keyword not given, aborted"
-		exit 0
-	else
+		then
+			echo "keyword not given, aborted"
+			exit 0
+		else
 
-		# search
-		echo grep -i "$keyword $path/*"
+			# search
 
+		FILESHEN=($(grep -i $keyword "$path/*"))
+
+		AANT=${#FILESHEN[*]}	
+		if [ $AANT = 0 ]
+		then
+			read -p "Geen bestanden gevonden, nieuwe aanmaken? (j/n): " antwoord
+			while true
+			do
+					case $antwoord in
+							[yYjJ]* ) create_file $1 $2
+											break;;
+							[nN]* ) echo "Beeindigd.."
+									exit;;
+							* ) echo "Alleen j/n"
+					esac
+			done
+		elif [ $AANT = 1 ]
+		then
+			echo "Bestand gevonden: ${FILESHEN[0]}"
+			read -p "Open dit bestand nu? (j/n): " antwoord
+			while true
+			do
+					case $antwoord in
+					     	[yYjJ]* )	vim "${FILESHEN[0]}"
+									    break;;
+							[nN]* ) 	create_file $1 $2
+										break;;
+							* ) echo "Alleen J/N"
+					esac
+			done
+		else
+			teller=1
+			echo "$AANT bestanden gevonden;"
+			echo ""
+			for f in "${FILESHEN[@]}"
+				do
+				echo "$teller: $f"
+				((teller++))
+			done
+			echo ""
+			read -p "Welke moet worden geopend? (n = stop): " antwoord
+			while true
+			do
+					case $antwoord in
+							[nN]* ) 		echo "Beeindigd.."
+											exit;;
+							* )				vim "${FILESHEN[$antwoord-1]}"	
+							                break;;
+					esac
+			done
+		fi
 	fi
-
 fi
 
 
