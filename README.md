@@ -43,11 +43,12 @@ EXAMPLES
     - for export use: pandoc file.md -o ~/Desktop/file.pdf
     - for search use: "grep -i -H -R string *" in folder
 
-    - for adding images to your note, place image in "img" folder and add in text; ![titel of image](img/file.jpg)
+    - for adding images to your note, place image in "img" folder and add in text; 
+      ![titel of image](img/file.jpg)
 
 TODO
 
-    - 
+    - search and export-functions 
 
 SEE ALSO
 
